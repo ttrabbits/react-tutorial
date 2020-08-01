@@ -49,6 +49,7 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      orderIsAsc: true,
     }
   }
 
@@ -77,6 +78,12 @@ class Game extends React.Component {
     })
   }
 
+  toggleOrder() {
+    this.setState({
+      orderIsAsc: !this.state.orderIsAsc,
+    })
+  }
+
   render() {
     const history = this.state.history
     const current = history[this.state.stepNumber]
@@ -97,6 +104,10 @@ class Game extends React.Component {
       )
     })
 
+    if (!this.state.orderIsAsc) {
+      moves.reverse()
+    }
+
     const status = winner
       ? 'Winner: ' + winner
       : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`
@@ -111,6 +122,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <button onClick={() => this.toggleOrder()}>Toggle Order</button>
           <ol>{moves}</ol>
         </div>
       </div>
