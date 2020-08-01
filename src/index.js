@@ -109,10 +109,14 @@ class Game extends React.Component {
       moves.reverse()
     }
 
-    const status = winner
+    let status = winner
       ? 'Winner: ' + winner
       : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`
     const lastPos = winner ? current.pos : null
+
+    if (history.length === 10 && !winner) {
+      status = 'This game is draw!'
+    }
 
     return (
       <div className="game">
