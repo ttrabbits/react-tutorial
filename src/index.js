@@ -3,20 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
+  const className = props.focus ? 'square focus' : 'square'
   return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
+    <button className={className} onClick={props.onClick}>{props.value}</button>
   )
 }
 
 class Board extends React.Component {
   renderSquare(i) {
+    const focus = this.props.lastPos === i
     return (
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
         key={i}
+        focus={focus}
       />
     )
   }
@@ -111,6 +112,7 @@ class Game extends React.Component {
     const status = winner
       ? 'Winner: ' + winner
       : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`
+    const lastPos = winner ? current.pos : null
 
     return (
       <div className="game">
@@ -118,6 +120,8 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winner={winner}
+            lastPos={lastPos}
           />
         </div>
         <div className="game-info">

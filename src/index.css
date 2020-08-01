@@ -39,6 +39,10 @@ body {
   .kbd-navigation .square:focus {
     background: #ddd;
   }
+
+  .focus {
+    background: lightyellow;
+  }
   
   .game {
     display: flex;
